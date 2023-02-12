@@ -1,0 +1,41 @@
+#!/bin/bash
+# Extract or compress every FastQ file in a directory and its subdirectories.
+if [ "$1" == "-h" ]
+then
+	echo "Ugage: fqzp extract"
+	echo "Ugage: fqzp compress"
+elif [ "$1" == "compress" ]
+then 
+	for dir in $(find . -type d) 
+	do
+		cd $dir
+		fqs=$(ls | grep -E ".fq$|.fastq$")
+		for file in $fqs
+		do 
+			if [ -f $file ]
+			then 
+				echo $dir
+				gzip $file
+			fi
+		done 
+		cd - > /dev/null
+	done
+elif [ "$1" == "extract" ]
+then
+	for dir in $(find . -type d) 
+	do
+		cd $dir
+		zfqs=$(ls | grep -E ".fq.gz$|.fastq.gz$")
+		for file in $zfqs
+		do 
+			if [ -f $file ]
+			then 
+				echo $dir
+				gunzip $file
+			fi
+		done 
+		cd - > /dev/null
+	done
+else
+	echo "Error: Use -h for help."
+fi
