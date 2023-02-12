@@ -2,8 +2,8 @@
 # Extract or compress every FastQ file in a directory and its subdirectories.
 if [ "$1" == "-h" ]
 then
-	echo "Ugage: fqzp extract"
-	echo "Ugage: fqzp compress"
+	echo "Usage: fqzp extract"
+	echo "Usage: fqzp compress"
 elif [ "$1" == "compress" ]
 then 
 	for dir in $(find . -type d) 
